@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: scale(0.8);
+            animation: fadeInScale 1s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            to {
+                text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .stats {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+                margin: 20px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <h1 id="greeting">Hello, World!</h1>
+        <p>Welcome to my awesome Hello World application!</p>
+        <p>This is a modern, interactive web app built with HTML, CSS, and JavaScript.</p>
+        
+        <div>
+            <button class="btn" onclick="changeGreeting()">Change Greeting</button>
+            <button class="btn" onclick="showTime()">Show Time</button>
+            <button class="btn" onclick="changeTheme()">Change Theme</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number" id="clickCount">0</span>
+                <div class="stat-label">Button Clicks</div>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="visitTime">0</span>
+                <div class="stat-label">Seconds Here</div>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="greetingCount">1</span>
+                <div class="stat-label">Greetings Shown</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App state
+        let clickCount = 0;
+        let greetingCount = 1;
+        let visitTime = 0;
+        let currentTheme = 0;
+        
+        // Greetings array
+        const greetings = [
+            "Hello, World!",
+            "Hi there! 👋",
+            "Welcome! 🎉",
+            "Greetings! 🌟",
+            "Hey everyone! 😊",
+            "Good to see you! 💫",
+            "Howdy! 🤠",
+            "Bonjour! 🇫🇷",
+            "Hola! 🇪🇸",
+            "Ciao! 🇮🇹"
+        ];
+
+        // Color themes
+        const themes = [
+            'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+            'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+        ];
+
+        // Functions
+        function changeGreeting() {
+            clickCount++;
+            greetingCount++;
+            
+            const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+            document.getElementById('greeting').textContent = randomGreeting;
+            
+            updateStats();
+            
+            // Add a little animation
+            const greeting = document.getElementById('greeting');
+            greeting.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                greeting.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        function showTime() {
+            clickCount++;
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('greeting').textContent = `It's ${timeString}!`;
+            greetingCount++;
+            updateStats();
+        }
+
+        function changeTheme() {
+            clickCount++;
+            currentTheme = (currentTheme + 1) % themes.length;
+            document.body.style.background = themes[currentTheme];
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('clickCount').textContent = clickCount;
+            document.getElementById('greetingCount').textContent = greetingCount;
+        }
+
+        // Timer for visit duration
+        setInterval(() => {
+            visitTime++;
+            document.getElementById('visitTime').textContent = visitTime;
+        }, 1000);
+
+        // Initialize
+        console.log('Hello World App initialized! 🚀');
+        console.log('Try clicking the buttons to see the magic happen!');
+    </script>
+</body>
+</html>
